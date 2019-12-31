@@ -74,7 +74,7 @@ io.on('connection', (socket:any) => {
             i18n.__("december")
         ];
 
-        let currentDate = now.getDay()+". "+monthNames[now.getMonth()]+" "+now.getFullYear();
+        let currentDate = now.getDate()+". "+monthNames[now.getMonth()]+" "+now.getFullYear();
 		socket.emit('tick', { time: currentTime, date: currentDate });
     };
     dateTime();
