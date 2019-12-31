@@ -1,0 +1,36 @@
+{
+	"room_free": "открытый",
+	"room_busy": "оккупированный",
+	"january": "январь",
+	"february": "февраль",
+	"march": "марш",
+	"april": "апрель",
+	"may": "мая",
+	"june": "июнь",
+	"july": "июль",
+	"august": "августейший",
+	"september": "сентябрь",
+	"october": "октябрь",
+	"november": "ноябрь",
+	"december": "Декабрь",
+	"next_label": "Следующая встреча:",
+	"organizer": "организатор",
+	"until %s": "до %s",	
+	"until_minutes": {
+		"one": "%s минут ",
+		"other": "%s минут "
+	},
+	"until_hours": {
+		"one": "%s час ",
+		"other": "%s часов "
+	},
+	"opens %s": "Открытие %s",
+	"opens_hours": {
+		"one": "%s час ",
+		"other": "%s часов "
+	},
+	"opens_minutes": {
+		"one": "%s минут ",
+		"other": "%s минут "
+	}
+}

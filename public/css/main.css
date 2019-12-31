@@ -1,0 +1,24 @@
+body {
+    overflow: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+.display-xxl {
+    font-size: 20rem;
+}
+
+.display-xl {
+    font-size: 15rem;
+}
+
+.display-large {
+    font-size: 10rem;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}

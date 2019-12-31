@@ -1,0 +1,37 @@
+{
+    "room_free": "FREE",
+    "room_busy": "OCCUPIED",
+    "january": "january",
+    "february": "february",
+    "march": "march",
+    "april": "april",
+    "may": "may",
+    "june": "june",
+    "july": "july",
+    "august": "august",
+    "september": "september",
+    "october": "october",
+    "november": "november",
+    "december": "december",    
+    "next_label": "Next meeting:",
+    "organizer": "Organizer",
+    "until %s": "until %s",	
+	"until_minutes": {
+		"one": "%s minute ",
+		"other": "%s minutes "
+	},
+	"until_hours": {
+		"one": "%s hour ",
+		"other": "%s hours "
+	},
+	"opens %s": "opens after %s",
+	"opens_hours": {
+		"one": "%s hour ",
+		"other": "%s hours "
+	},
+	"opens_minutes": {
+		"one": "%s minute ",
+		"other": "%s minutes "
+	}
+    
+}

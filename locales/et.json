@@ -1,0 +1,37 @@
+{
+	"room_free": "VABA",
+	"room_busy": "HÕIVATUD",
+	"january": "jaanuar",
+	"february": "veebruar",
+	"march": "märts",
+	"april": "aprill",
+	"may": "mai",
+	"june": "juuni",
+	"july": "juuli",
+	"august": "august",
+	"september": "september",
+	"october": "oktoober",
+	"november": "november",
+	"december": "detsember",
+	"next_label": "Järgmine:",
+	"organizer": "Korraldaja",
+	"until %s": "kuni %s",	
+	"until_minutes": {
+		"one": "%s minut ",
+		"other": "%s minutit "
+	},
+	"until_hours": {
+		"one": "%s tund ",
+		"other": "%s tundi "
+	},
+	"opens %s": "vabaneb %s pärast",
+	"opens_hours": {
+		
+		"one": "%s tunni ",
+		"other": "%s tunni "
+	},
+	"opens_minutes": {
+		"one": "%s minuti ",
+		"other": "%s minuti "
+	}
+}
