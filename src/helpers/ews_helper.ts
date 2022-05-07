@@ -1,4 +1,4 @@
-import { EWSEvent } from "../model";
+import { EWSEvent, EWSConfig } from "../model";
 
 const EWS = require('node-ews');
 
@@ -10,20 +10,22 @@ export default class EWSHelper {
     endDate: Date = new Date();
     endTime: null|string = "23:59:59";
     
-    dateOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
-
-    ewsConfig: null|{} = null;
+    dateOptions:{} = { year: 'numeric', month: '2-digit', day: '2-digit' };
 
     ews:any = null;
     ewsFunction: string = 'FindItem';
     ewsArgs: null|{} = null;
 
     constructor() {
-        this.setConfig();
-        
-        this.ews = new EWS(this.ewsConfig);
+        const ewsConfig : null|EWSConfig = this.setConfig();
 
-        this.startTime = ('0'+this.startDate.getUTCHours()).substr(-2)+":"+('0'+this.startDate.getUTCMinutes()).substr(-2)+":"+('0'+this.startDate.getUTCSeconds()).substr(-2);
+        this.ews = new EWS(ewsConfig);
+        
+        let startHours:string = ('0'+this.startDate.getUTCHours()).slice(-2);
+        let startMinutes:string = ('0'+this.startDate.getUTCMinutes()).slice(-2);
+        let startSeconds:string = ('0'+this.startDate.getUTCSeconds()).slice(-2);
+
+        this.startTime = startHours+":"+startMinutes+":"+startSeconds;
         this.endDate.setDate(this.endDate.getDate() + 14);
 
         this.ewsArgs = {
@@ -35,8 +37,9 @@ export default class EWSHelper {
             },
             'CalendarView': {
                 'attributes': {
-                    'StartDate': this.startDate.toLocaleDateString("et-EE", this.dateOptions)+"T"+this.startTime,
-                    'EndDate': this.endDate.toLocaleDateString("et-EE", this.dateOptions)+"T"+this.endTime,
+                    'MaxEntriesReturned': 5,
+                    'StartDate': this.startDate.toLocaleDateString("en-CA", this.dateOptions)+"T"+this.startTime,
+                    'EndDate': this.endDate.toLocaleDateString("en-CA", this.dateOptions)+"T"+this.endTime,
                 }
             },
             'ParentFolderIds' : {
@@ -46,27 +49,29 @@ export default class EWSHelper {
                     }
                 }
             }
-        };
+        };   
     }
 
-    setConfig():void {
-        let ewsType = process.env.EWS_TYPE;
+    setConfig(): null|EWSConfig {
+        let ewsType: undefined|string = process.env.EWS_TYPE;
+        let ewsConfig: null|EWSConfig = null;
 
-        if(ewsType === "exhange") {
-            this.ewsConfig = {
+        if(ewsType === "exchange") {
+            ewsConfig = {
                 username: process.env.EWS_USER,
                 password: process.env.EWS_PASSWORD,
                 host: process.env.EWS_HOST
             };
         } else if(ewsType === "outlook") {
-            this.ewsConfig = {
+            ewsConfig = {
                 username: process.env.EWS_USER,
                 password: process.env.EWS_PASSWORD,
                 host: process.env.EWS_HOST,
                 auth: 'basic'
             };
-        }        
+        }
         
+        return ewsConfig;
     }
 
     setFunction(funcName: string):void {
@@ -83,7 +88,7 @@ export default class EWSHelper {
             this.ews.run(this.ewsFunction, this.ewsArgs).then((result:any) => {
                 let response = result.ResponseMessages.FindItemResponseMessage;
                 if(response.ResponseCode === "NoError") {
-                    let itemsCount = parseInt(response.RootFolder.attributes.TotalItemsInView);            
+                    let itemsCount = parseInt(response.RootFolder.attributes.TotalItemsInView);        
                     if(itemsCount !== 0) {
                         let items = response.RootFolder.Items.CalendarItem;
                         if(items.length !== undefined) {
@@ -106,13 +111,12 @@ export default class EWSHelper {
                                 "location": items.Location,
                                 "organizer": items.Organizer.Mailbox.Name
                             });
-                        }  
+                        }
                         resolve(this.events);
                     }
                 }
                 
             }).catch((err:any) => {
-                console.error(err.message);
                 reject(err);
             });
         });

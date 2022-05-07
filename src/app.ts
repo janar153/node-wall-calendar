@@ -121,22 +121,32 @@ io.on('connection', (socket:any) => {
                 }
             }
 
+            let color: string = "success";
+            if (roomFree) {
+                if (parseInt(roomEndTime) <= 15 && parseInt(roomEndTime) >= 0) {
+                    color = "warning"
+                }
+            } else if (!roomFree) {
+                color = "danger"
+            }
+
             let socketData = {
                 loadingData: loading,
                 room: {
                     is_free: roomFree,
                     status: (roomFree) ? i18n.__("room_free") : i18n.__("room_busy"),
                     end_time: (roomFree) ? i18n.__("until %s", roomEndTime) : i18n.__("opens %s", roomEndTime),
+                    bg_color: color,
                     organizer: roomOrganizer
                 },
                 next: {
                     has: (nextEvent !== null) ? true : false,
-                    date: (nextEvent !== null) ? ('0'+nextEvent.event_start.getDate()).substr(-2)+"."+('0'+nextMonth).substr(-2)+"."+nextEvent.event_start.getFullYear() : null,
-                    time: (nextEvent !== null) ? ('0'+nextEvent.event_start.getHours()).substr(-2)+":"+('0'+nextEvent.event_start.getMinutes()).substr(-2) : "",
+                    date: (nextEvent !== null) ? ('0'+nextEvent.event_start.getDate()).slice(-2)+"."+('0'+nextMonth).slice(-2)+"."+nextEvent.event_start.getFullYear() : null,
+                    time: (nextEvent !== null) ? ('0'+nextEvent.event_start.getHours()).slice(-2)+":"+('0'+nextEvent.event_start.getMinutes()).slice(-2) : "",
                     organizer: (nextEvent !== null) ? nextEvent.organizer : ""
                 }
             }
-        
+
             socket.emit('events', socketData);
         });     
 
