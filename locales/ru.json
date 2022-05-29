@@ -1,36 +1,49 @@
 {
-	"room_free": "открытый",
-	"room_busy": "оккупированный",
-	"january": "январь",
-	"february": "февраль",
-	"march": "марш",
-	"april": "апрель",
-	"may": "мая",
-	"june": "июнь",
-	"july": "июль",
-	"august": "августейший",
-	"september": "сентябрь",
-	"october": "октябрь",
-	"november": "ноябрь",
-	"december": "Декабрь",
-	"next_label": "Следующая встреча:",
-	"organizer": "организатор",
-	"until %s": "до %s",	
-	"until_minutes": {
-		"one": "%s минут ",
-		"other": "%s минут "
-	},
-	"until_hours": {
-		"one": "%s час ",
-		"other": "%s часов "
-	},
-	"opens %s": "Открытие %s",
-	"opens_hours": {
-		"one": "%s час ",
-		"other": "%s часов "
-	},
-	"opens_minutes": {
-		"one": "%s минут ",
-		"other": "%s минут "
-	}
+  "room_free": "открытый",
+  "room_busy": "оккупированный",
+  "january": "январь",
+  "february": "февраль",
+  "march": "марш",
+  "april": "апрель",
+  "may": "мая",
+  "june": "июнь",
+  "july": "июль",
+  "august": "августейший",
+  "september": "сентябрь",
+  "october": "октябрь",
+  "november": "ноябрь",
+  "december": "Декабрь",
+  "next_label": "Следующая встреча:",
+  "organizer": "организатор",
+  "until %s": "до %s",
+  "until_minutes": {
+    "one": "%s минут ",
+    "other": "%s минут "
+  },
+  "until_hours": {
+    "one": "%s час ",
+    "other": "%s часов "
+  },
+  "opens %s": "Открытие %s",
+  "opens_hours": {
+    "one": "%s час ",
+    "other": "%s часов "
+  },
+  "opens_minutes": {
+    "one": "%s минут ",
+    "other": "%s минут "
+  },
+  "booking_select_time": "Выберите продолжительность бронирования",
+  "booking_submit": "Забронируйте сейчас",
+  "booking_submit_error": "Длина бронирования не выбрана!",
+  "booking_now": "Забронируйте сейчас",
+  "booking_cancel": "Отмена",
+  "booking_not_allowed": "Бронирование в настоящее время невозможно!",
+  "booking_not_allowed_desc": "Пожалуйста, смотрите свободное время в календаре Outlook!",
+  "booking_time_15min": "15 мин",
+  "booking_time_30min": "30 мин",
+  "booking_time_60min": "60 мин",
+  "booking_time_120min": "2 часа",
+  "booking_time_240min": "4 часа",
+  "booking_time_480min": "8 часов"
 }

@@ -1,36 +1,48 @@
 <div class="row">
-  <div class="col-6">       
-    <span class="display-4">{{ appName }}</span>
+  <div class="col-6">
+    <span class="display-4">{{appName}}</span>
   </div>
   <div class="col-6 text-end">
     <span class="display-4" id="date"></span>
-  </div>  
-</div>
-
-<div class="row mt-5">
-  <div class="col-12 mt-5">        
-    
   </div>
 </div>
 
 <div class="row mt-5">
-  <div class="col-6 mt-5 text-center">        
+  <div class="col-12 mt-5">
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-6 text-center">
     <span class="display-xl font-weight-bold" id="time"></span>
   </div>
-  <div class="col-6 mt-5 text-center">  
+  <div class="col-6 text-center">
     <div class="row">
       <div class="col-12">
-        <span class="display-large font-weight-bold mt-5" id="roomStatus"></span>
+        <span
+          class="display-large font-weight-bold mt-5"
+          id="roomStatus"
+        ></span>
       </div>
       <div class="col-12">
-        <span class="display-4 font-weight-bold ml-5">
-          <span id="roomEndTime"></span> <br/>
-          <i data-feather="user" width="42" height="42" id="roomCurrentOrganizerIcon" class="hidden"></i> <span id="roomCurrentOrganizer"></span>
+        <span class="display-4 fw-lighter ml-5">
+          <span id="roomEndTime"></span>
+          <br />
+          <i
+            data-feather="user"
+            width="42"
+            height="42"
+            id="roomCurrentOrganizerIcon"
+            class="hidden"
+          ></i>
+          <span id="roomCurrentOrganizer"></span>
         </span>
       </div>
-    </div>      
-    
+      <div class="col-12 mt-2">
+        <a href="/book" role="button" type="button" class="btn btn-outline-warning btn-xl" id="book-now-button">{{__ "booking_now"}}</a>
+      </div>
+    </div>
+
   </div>
 </div>
-
-

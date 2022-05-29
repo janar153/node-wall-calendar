@@ -1,37 +1,49 @@
 {
-    "room_free": "FREE",
-    "room_busy": "OCCUPIED",
-    "january": "january",
-    "february": "february",
-    "march": "march",
-    "april": "april",
-    "may": "may",
-    "june": "june",
-    "july": "july",
-    "august": "august",
-    "september": "september",
-    "october": "october",
-    "november": "november",
-    "december": "december",    
-    "next_label": "Next meeting:",
-    "organizer": "Organizer",
-    "until %s": "until %s",	
-	"until_minutes": {
-		"one": "%s minute ",
-		"other": "%s minutes "
-	},
-	"until_hours": {
-		"one": "%s hour ",
-		"other": "%s hours "
-	},
-	"opens %s": "opens after %s",
-	"opens_hours": {
-		"one": "%s hour ",
-		"other": "%s hours "
-	},
-	"opens_minutes": {
-		"one": "%s minute ",
-		"other": "%s minutes "
-	}
-    
+  "room_free": "FREE",
+  "room_busy": "OCCUPIED",
+  "january": "january",
+  "february": "february",
+  "march": "march",
+  "april": "april",
+  "may": "may",
+  "june": "june",
+  "july": "july",
+  "august": "august",
+  "september": "september",
+  "october": "october",
+  "november": "november",
+  "december": "december",
+  "next_label": "Next meeting:",
+  "organizer": "Organizer",
+  "until %s": "until %s",
+  "until_minutes": {
+    "one": "%s minute ",
+    "other": "%s minutes "
+  },
+  "until_hours": {
+    "one": "%s hour ",
+    "other": "%s hours "
+  },
+  "opens %s": "opens after %s",
+  "opens_hours": {
+    "one": "%s hour ",
+    "other": "%s hours "
+  },
+  "opens_minutes": {
+    "one": "%s minute ",
+    "other": "%s minutes "
+  },
+  "booking_select_time": "Select booking length",
+  "booking_submit": "Book now",
+  "booking_submit_error": "Booking length not selected!",
+  "booking_now": "Book now",
+  "booking_cancel": "Cancel",
+  "booking_not_allowed": "Booking is currently not possible!",
+  "booking_not_allowed_desc": "Please see the free times in the Outlook calendar!",
+  "booking_time_15min": "15 min",
+  "booking_time_30min": "30 min",
+  "booking_time_60min": "60 min",
+  "booking_time_120min": "2 hours",
+  "booking_time_240min": "4 hours",
+  "booking_time_480min": "8 hours"
 }

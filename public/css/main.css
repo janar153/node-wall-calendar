@@ -1,24 +1,47 @@
 body {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .display-xxl {
-    font-size: 20rem;
+  font-size: 20rem;
 }
 
 .display-xl {
-    font-size: 15rem;
+  font-size: 15rem;
 }
 
 .display-large {
-    font-size: 10rem;
+  font-size: 10rem;
 }
 
 a:hover {
-    color: #0056b3;
-    text-decoration: none;
+  color: #0056b3;
+  text-decoration: none;
 }
+
+btn-group-xl>.btn, .btn-xl {
+  padding: 0.5rem 1rem;
+  font-size: 5.25rem;
+}
+
+.big-screen {
+  height: 50vh;
+}
+.hidden {
+  display: none !important;
+}
+
+.bg-danger {
+  background-color: #D73E3E !important;
+}
+.bg-success {
+  background-color: #308653 !important;
+}
+.btn {
+  border-radius: 20px;
+}
+

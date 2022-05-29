@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  wall-01:
+    container_name: wall-01
+    image: node-wall-calendar:1.0.0
+    ports:
+      - 3002:3002
+    env_file:
+      - .env1
+    networks:
+      - wall-network
+  wall-02:
+    container_name: wall-02
+    image: node-wall-calendar:1.0.0
+    ports:
+      - 3003:3003
+    env_file:
+      - .env2
+    networks:
+      - wall-network
+
+networks:
+  wall-network:
+    name: wall-network
+    driver: bridge

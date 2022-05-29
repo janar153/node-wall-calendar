@@ -1,37 +1,49 @@
 {
-	"room_free": "VABA",
-	"room_busy": "HÕIVATUD",
-	"january": "jaanuar",
-	"february": "veebruar",
-	"march": "märts",
-	"april": "aprill",
-	"may": "mai",
-	"june": "juuni",
-	"july": "juuli",
-	"august": "august",
-	"september": "september",
-	"october": "oktoober",
-	"november": "november",
-	"december": "detsember",
-	"next_label": "Järgmine:",
-	"organizer": "Korraldaja",
-	"until %s": "kuni %s",	
-	"until_minutes": {
-		"one": "%s minut ",
-		"other": "%s minutit "
-	},
-	"until_hours": {
-		"one": "%s tund ",
-		"other": "%s tundi "
-	},
-	"opens %s": "vabaneb %s pärast",
-	"opens_hours": {
-		
-		"one": "%s tunni ",
-		"other": "%s tunni "
-	},
-	"opens_minutes": {
-		"one": "%s minuti ",
-		"other": "%s minuti "
-	}
+  "room_free": "VABA",
+  "room_busy": "HÕIVATUD",
+  "january": "jaanuar",
+  "february": "veebruar",
+  "march": "märts",
+  "april": "aprill",
+  "may": "mai",
+  "june": "juuni",
+  "july": "juuli",
+  "august": "august",
+  "september": "september",
+  "october": "oktoober",
+  "november": "november",
+  "december": "detsember",
+  "next_label": "Järgmine:",
+  "organizer": "Korraldaja",
+  "until %s": "kuni %s",
+  "until_minutes": {
+    "one": "%s minut ",
+    "other": "%s minutit "
+  },
+  "until_hours": {
+    "one": "%s tund ",
+    "other": "%s tundi "
+  },
+  "opens %s": "vabaneb %s pärast",
+  "opens_hours": {
+    "one": "%s tunni ",
+    "other": "%s tunni "
+  },
+  "opens_minutes": {
+    "one": "%s minuti ",
+    "other": "%s minuti "
+  },
+  "booking_select_time": "Vali broneeringu pikkus",
+  "booking_submit": "Broneeri",
+  "booking_submit_error": "Broneeringu pikkus valimata!",
+  "booking_now": "Broneeri kohe",
+  "booking_cancel": "Katkesta",
+  "booking_not_allowed": "Broneerimine ei ole hetkel võimalik!",
+  "booking_not_allowed_desc": "Palun vaata vabu aegasid Outlook kalendris!",
+  "booking_time_15min": "15 min",
+  "booking_time_30min": "30 min",
+  "booking_time_60min": "60 min",
+  "booking_time_120min": "2 tundi",
+  "booking_time_240min": "4 tundi",
+  "booking_time_480min": "8 tundi"
 }

@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-6">
+    <span class="display-4">{{appName}}</span>
+  </div>
+  <div class="col-6 text-end">
+    <span class="display-4" id="date"></span> 
+    <span class="display-4">@</span> 
+    <span class="display-4" id="time"></span>
+  </div>
+</div>
+
+
+<div class="row mt-5 booking-message big-screen  d-flex justify-content-center align-items-center">
+  <div class="col-12 mt-5 text-center">
+    <p class="display-4">{{__ "booking_not_allowed"}}</p>
+    <p class="display-4 fw-lighter">{{__ "booking_not_allowed_desc"}}</p>
+  </div>
+</div>
+
+<div class="row mt-5 booking-form">
+  <div class="col-12 mt-4 text-center d-flex justify-content-center">
+    <p class="display-4">{{__ "booking_select_time"}}</p>
+  </div>
+  <div class="col-12 mt-4 text-center d-flex justify-content-center">
+    
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+      <div class="btn-group me-4" role="group" aria-label="Basic example">
+        <input type="radio" class="btn-check" name="bookingTime" value="15" id="booking15" autocomplete="off">
+        <label class="btn btn-outline-light btn-xl" for="booking15">{{__ "booking_time_15min"}}</label>
+
+        <input type="radio" class="btn-check" name="bookingTime" value="30" id="booking30" autocomplete="off">
+        <label class="btn btn-outline-light btn-xl" for="booking30">{{__ "booking_time_30min"}}</label>
+
+        <input type="radio" class="btn-check" name="bookingTime" value="60" id="booking60" autocomplete="off">
+        <label class="btn btn-outline-light btn-xl" for="booking60">{{__ "booking_time_60min"}}</label>
+      </div>
+
+      <div class="btn-group me-4" role="group" aria-label="Basic example">
+        <input type="radio" class="btn-check" name="bookingTime" value="120" id="booking120" autocomplete="off">
+        <label class="btn btn-outline-light btn-xl" for="booking120">{{__ "booking_time_120min"}}</label>
+
+        <input type="radio" class="btn-check" name="bookingTime" value="240" id="booking240" autocomplete="off">
+        <label class="btn btn-outline-light btn-xl" for="booking240">{{__ "booking_time_240min"}}</label>
+      </div>
+
+      <div class="btn-group" role="group" aria-label="All day">
+        <input type="radio" class="btn-check" name="bookingTime" value="480" id="booking480" autocomplete="off">
+        <label class="btn btn-outline-light btn-xl" for="booking480">{{__ "booking_time_480min"}}</label>
+      </div>
+    </div>
+    
+  </div>
+
+</div>
+
+<div class="row mt-4 booking-form">
+
+  <div class="col-4 d-flex justify-content-end">
+    <button type="button" class="btn btn-outline-warning btn-xl" id="bookNowSubmit">{{__ "booking_submit"}}</button>
+  </div>
+
+  <div class="col-3 mt-5">
+    <div class="alert alert-danger hidden" id="booking-submit-error" role="alert">
+      {{__ "booking_submit_error"}}
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-11 d-flex justify-content-end">
+    <a href="/" role="button" type="button" class="btn btn-outline-warning btn-xl">{{__ "booking_cancel"}}</a>
+  </div>
+  
+</div>
