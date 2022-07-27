@@ -45,5 +45,6 @@
   "booking_time_60min": "60 min",
   "booking_time_120min": "2 hours",
   "booking_time_240min": "4 hours",
-  "booking_time_480min": "8 hours"
+  "booking_time_480min": "8 hours",
+  "booking_end_now": "Free room"
 }

@@ -30,6 +30,7 @@ io.on("tick", function (data) {
 $(".booking-form").addClass("hidden");
 $("#book-now-button").addClass("hidden");
 $(".booking-message").addClass("hidden");
+$("#book-end-now-button").addClass("hidden");
 
 io.on("events", function (data) {
   let roomFree = data.room.is_free;
@@ -56,15 +57,23 @@ io.on("events", function (data) {
 
   });
 
+  $("#book-end-now-button").removeClass("hidden").addClass("hidden");
+  console.log("bg_color", data.room.bg_color);
   if (data.room.bg_color != "success") {
     $(".booking-form").removeClass("hidden").addClass("hidden");
     $("#book-now-button").removeClass("hidden").addClass("hidden");
     $(".booking-message").removeClass("hidden");
+
+    if(data.room.bg_color == "danger") {
+      $("#book-end-now-button").removeClass("hidden");
+      $("#book-end-now-button").attr("href","/end?eventId=" + data.room.id + "&changeKey=" + data.room.eventChangeId);
+      console.log("event id: ", data.room.id);
+    }
   } else if (data.room.bg_color == "success") {
     $(".booking-form").removeClass("hidden");
     $("#book-now-button").removeClass("hidden");
     $(".booking-message").addClass("hidden");
-  }
+  }  
 
   if (!data.room.booking_enabled) {
     $("#book-now-button").removeClass("hidden").addClass("hidden");

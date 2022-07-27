@@ -3,8 +3,9 @@ dotenv.config();
 
 import express from "express";
 import EWSHelper from "./helpers/ews_helper";
+import CalendarHelper from "./helpers/calendar_helper";
 import { EWSEvent } from "./model";
-const ewsHelper = new EWSHelper();
+import fs from "fs";
 
 import hbs from "hbs";
 import { I18n } from 'i18n';
@@ -20,6 +21,7 @@ i18n.configure({
   autoReload: true,
 });
 
+const port = process.env.PORT || 3002;
 const appLang = process.env.APP_LANG || "et";
 const bookingEnabled = process.env.BOOKING_ENABLED || true;
 
@@ -29,43 +31,26 @@ hbs.registerHelper("appName", () => {
   return process.env.APP_NAME;
 });
 
+const ewsHelper = new EWSHelper();
+const CalHelper = new CalendarHelper(i18n);
+
 const app = express();
-import http from "http";
-const server = http.createServer(app);
+import https from "https";
+
+const serverOptions = {
+  key: fs.readFileSync("localhost.key"),
+  cert: fs.readFileSync("localhost.crt")
+}
+
+const httpsServer = https.createServer(serverOptions, app);
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const io = require("socket.io")(server);
+const io = require("socket.io")(httpsServer);
 
 app.use(i18n.init);
 
 hbs.registerHelper("__", function (str) {
   return (i18n != undefined ? i18n.__(str) : str);
 });
-
-function getEndInMinutes(endDate: Date) {
-  const now = new Date();
-  const timeToEndMS = endDate.getTime() - now.getTime();
-  const timeToEndInMinutes = Math.floor((timeToEndMS / 1000 / 60) << 0);
-
-  return timeToEndInMinutes;
-}
-
-function timeConvert(endDate: Date, translationString: string) {
-  const timeToEndInMinutes = getEndInMinutes(endDate);
-
-  const hours = timeToEndInMinutes / 60;
-  const rhours = Math.floor(hours);
-  const minutes = (hours - rhours) * 60;
-  const rminutes = Math.round(minutes);
-
-  let response = "";
-  if (rhours > 0) {
-    response += i18n.__n(translationString + "_hours", rhours);
-  }
-  if (rminutes > 0) {
-    response += i18n.__n(translationString + "_minutes", rminutes);
-  }
-  return response; //timeToEndInMinutes + " minutes = " + rhours + " hour(s) and " + rminutes + " minute(s).";
-}
 
 io.on("connection", (socket: { emit: (arg0: string, arg1: { time?: string; date?: string; loadingData?: boolean; room?: { is_free: boolean; status: string; end_time: string; bg_color: string; organizer: string; }; next?: { has: boolean; date: string | null; time: string; organizer: string; }; }) => void; }) => {
   function dateTime() {
@@ -110,6 +95,8 @@ io.on("connection", (socket: { emit: (arg0: string, arg1: { time?: string; date?
     let endInMinutes = 0;
     let startInMinutes = 500;
     let roomOrganizer = "";
+    let eventId: null|string = null;
+    let eventChangeId = "";
 
     let hasCurrent = false;
 
@@ -123,10 +110,12 @@ io.on("connection", (socket: { emit: (arg0: string, arg1: { time?: string; date?
           if (event.event_start <= now && event.event_end >= now) {
             hasCurrent = true;
             roomFree = false;
-            roomEndTime = timeConvert(event.event_end, "opens");
-            endInMinutes = getEndInMinutes(event.event_end);
-            startInMinutes = getEndInMinutes(event.event_start);
+            roomEndTime = CalHelper.timeConvert(event.event_end, "opens");
+            endInMinutes = CalHelper.getEndInMinutes(event.event_end);
+            startInMinutes = CalHelper.getEndInMinutes(event.event_start);
             roomOrganizer = event.organizer;
+            eventId = event.id;
+            eventChangeId = event.changeKey;
           }
 
           if (event.event_start >= now) {
@@ -138,9 +127,9 @@ io.on("connection", (socket: { emit: (arg0: string, arg1: { time?: string; date?
                 nextEvent.event_start.getMonth() == now.getMonth() &&
                 nextEvent.event_start.getFullYear() == now.getFullYear()
               ) {
-                roomEndTime = timeConvert(nextEvent.event_start, "until");
-                endInMinutes = getEndInMinutes(nextEvent.event_start);
-                startInMinutes = getEndInMinutes(nextEvent.event_start);
+                roomEndTime = CalHelper.timeConvert(nextEvent.event_start, "until");
+                endInMinutes = CalHelper.getEndInMinutes(nextEvent.event_start);
+                startInMinutes = CalHelper.getEndInMinutes(nextEvent.event_start);
               } else {
                 roomEndTime = ""; 
               }
@@ -164,6 +153,8 @@ io.on("connection", (socket: { emit: (arg0: string, arg1: { time?: string; date?
         loadingData: loading,
         room: {
           is_free: roomFree,
+          id: eventId,
+          eventChangeId: eventChangeId,
           booking_enabled: bookingEnabled == "true",
           status: roomFree ? i18n.__("room_free") : i18n.__("room_busy"),
           time_to_start_in_minutes: startInMinutes,
@@ -204,8 +195,6 @@ io.on("connection", (socket: { emit: (arg0: string, arg1: { time?: string; date?
   setInterval(update, 1000 * 60);
 });
 
-const port = process.env.PORT || 3002;
-
 app.enable("trust proxy");
 app.set("port", port);
 
@@ -234,7 +223,22 @@ if (bookingEnabled == "true") {
     ewsHelper.addEvent(minutesToAdd).then((result: any) => {
       res.json(result);
     });
-    
+  });
+
+  app.get("/end", (req, res) => {
+    i18n.setLocale(req, appLang);
+
+    ewsHelper.endEvent(req.query.eventId, req.query.changeKey).then((ewsResult: any) => {
+      // const endResult = {
+      //   request: {
+      //     eventId: req.query.eventId,
+      //     changeKey: req.query.changeKey
+      //   },
+      //   result: ewsResult
+      // };
+
+      res.redirect("/");
+    });
   });
 }
 
@@ -243,6 +247,6 @@ app.get('*', function(req, res){
   res.redirect("/");
 });
 
-server.listen(port, () => {
+httpsServer.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

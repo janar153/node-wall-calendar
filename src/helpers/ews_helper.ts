@@ -1,4 +1,5 @@
 import { EWSEvent, EWSConfig } from "../model";
+import { encode, decode } from 'url-safe-base64'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const EWS = require("node-ews");
@@ -89,7 +90,61 @@ export default class EWSHelper {
     this.ewsArgs = args;
   }
 
+  endEvent(eventId: any, changeKey: any): Promise<any> {
+    const now = new Date();
+    const endDate = new Date(this.startDate.getTime());
+    const endHours: string = ("0" + endDate.getUTCHours()).slice(-2);
+    const endMinutes: string = ("0" + endDate.getUTCMinutes()).slice(-2);
+    const endSeconds: string = ("0" + endDate.getUTCSeconds()).slice(-2);
+
+    const endTime = endHours + ":" + endMinutes + ":" + endSeconds;
+    const args = {
+      attributes: {
+        MessageDisposition: "SaveOnly",
+        ConflictResolution: "AlwaysOverwrite",
+        SendMeetingInvitationsOrCancellations: "SendToNone"
+      },
+      ItemChanges: {
+        ItemChange: {
+          ItemId: {
+            attributes: {
+              Id: decode(eventId),
+              ChangeKey: decode(changeKey)
+            }
+          },
+          Updates: {
+            SetItemField: {
+              FieldURI: {
+                attributes: {
+                  FieldURI: "calendar:End"
+                }
+              },
+              CalendarItem: {
+                End: endDate.toLocaleDateString("en-CA", this.dateOptions) + "T" + endTime + ".000Z",
+              }
+            }
+          }
+        }
+      }
+    }
+
+    console.log(now.toUTCString() + " - INFO [End event with ID: " + decode(eventId) + "]");
+
+    return new Promise((resolve, reject) => {
+      this.ews
+        .run("UpdateItem", args)
+        .then((result: any) => {
+          resolve(result);
+        })
+        .catch((err: any) => {
+          reject(err);
+        });
+    });
+
+  }
+
   addEvent(minutesToAdd: number): Promise<any> {
+    const now = new Date();
     const endDate = new Date(this.startDate.getTime() + minutesToAdd*60000);
     const endHours: string = ("0" + endDate.getUTCHours()).slice(-2);
     const endMinutes: string = ("0" + endDate.getUTCMinutes()).slice(-2);
@@ -110,6 +165,8 @@ export default class EWSHelper {
         }
       }
     }
+
+    console.log(now.toUTCString() + " - INFO [Add event start date: " + args.Items.CalendarItem.Start + " end date: " + args.Items.CalendarItem.End + "]");
 
     return new Promise((resolve, reject) => {
       this.ews
@@ -139,7 +196,8 @@ export default class EWSHelper {
               if (items.length !== undefined) {
                 items.forEach((item: any) => {
                   this.events.push({
-                    id: item.ItemId.attributes.Id,
+                    id: encode(item.ItemId.attributes.Id),
+                    changeKey: encode(item.ItemId.attributes.ChangeKey),
                     subject: item.Subject,
                     event_start: new Date(item.Start),
                     event_end: new Date(item.End),
@@ -149,7 +207,8 @@ export default class EWSHelper {
                 });
               } else {
                 this.events.push({
-                  id: items.ItemId.attributes.Id,
+                  id: encode(items.ItemId.attributes.Id),
+                  changeKey: encode(items.ItemId.attributes.ChangeKey),
                   subject: items.Subject,
                   event_start: new Date(items.Start),
                   event_end: new Date(items.End),
