@@ -219,6 +219,7 @@ if (bookingEnabled == "true") {
   app.post("/book", (req, res) => {
     i18n.setLocale(req, appLang);
     const minutesToAdd = req.body.meeting_length;
+    const ewsHelper = new EWSHelper();
   
     ewsHelper.addEvent(minutesToAdd).then((result: any) => {
       res.json(result);
@@ -227,6 +228,7 @@ if (bookingEnabled == "true") {
 
   app.get("/end", (req, res) => {
     i18n.setLocale(req, appLang);
+    const ewsHelper = new EWSHelper();
 
     ewsHelper.endEvent(req.query.eventId, req.query.changeKey).then((ewsResult: any) => {
       // const endResult = {
